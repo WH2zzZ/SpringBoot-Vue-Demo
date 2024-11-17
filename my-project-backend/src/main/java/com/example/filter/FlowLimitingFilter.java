@@ -1,6 +1,5 @@
 package com.example.filter;
 
-import com.example.entity.RestBean;
 import com.example.utils.Const;
 import com.example.utils.FlowUtils;
 import jakarta.annotation.Resource;
@@ -75,6 +74,5 @@ public class FlowLimitingFilter extends HttpFilter {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType("application/json;charset=utf-8");
         PrintWriter writer = response.getWriter();
-        writer.write(RestBean.forbidden("操作频繁，请稍后再试").asJsonString());
     }
 }

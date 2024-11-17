@@ -26,6 +26,18 @@ public class FlowUtils {
      * @return 是否通过限流检查
      */
     public boolean limitOnceCheck(String key, int blockTime){
+        if (key == null){
+            log.error("限流key为空");
+            return false;
+        }
+        template.opsForValue().set(key, "1", blockTime, TimeUnit.SECONDS);
+        if (blockTime > 0) {
+            template.expire(key, blockTime, TimeUnit.SECONDS);
+        }
+        // 第一次请求，直接返回true
+        if (template.opsForValue().get(key) == null) {
+            return true;
+        }
         return this.internalCheck(key, 1, blockTime, (overclock) -> false);
     }
 

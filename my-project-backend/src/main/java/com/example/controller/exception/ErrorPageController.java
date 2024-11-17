@@ -1,6 +1,6 @@
 package com.example.controller.exception;
 
-import com.example.entity.RestBean;
+import com.example.common.BizResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -29,12 +29,12 @@ public class ErrorPageController extends AbstractErrorController {
      * @return 失败响应
      */
     @RequestMapping
-    public RestBean<Void> error(HttpServletRequest request) {
+    public BizResponse<Void> error(HttpServletRequest request) {
         HttpStatus status = this.getStatus(request);
         Map<String, Object> errorAttributes = this.getErrorAttributes(request, this.getAttributeOptions());
         String message = this.convertErrorMessage(status)
                 .orElse(errorAttributes.get("message").toString());
-        return RestBean.failure(status.value(), message);
+        return BizResponse.error(status.value(), message);
     }
 
     /**

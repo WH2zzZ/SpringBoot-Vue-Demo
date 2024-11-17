@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SnowflakeIdGenerator {
+
     private static final long START_TIMESTAMP = 1691087910202L;
 
     private static final long DATA_CENTER_ID_BITS = 5L;
